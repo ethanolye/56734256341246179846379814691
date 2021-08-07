@@ -42,7 +42,7 @@ async def mute(ctx, member: discord.Member):
     role_muted = discord.utils.get(ctx.guild.roles, name='muted')
     await member.add_roles(role_muted)
     await ctx.send(f'{member.mention} have been muted  ')
-  
+
 @bot.command()
 @commands.has_role("[Staff]")
 async def unmute(ctx, member: discord.Member):
@@ -71,7 +71,7 @@ async def suggest(ctx, *, arg):
   await channel.send("suggested by:"f'{ctx.message.author.mention}',arg) 
   await message.add_reaction("✅")
   await message.add_reaction("❎")
- 
+
 
 
 @bot.command()
@@ -99,7 +99,7 @@ async def applyguild(ctx, *, arg):
 @bot.command()
 async def apply(ctx):
     await ctx.send("Please use $applyguild(weight + sky.shiyyu.moe link) to apply for this guild ")
-    
+
 @bot.command()
 async def dmtest(ctx):
     await ctx.author.send("this is a test Ps. this is a future command that will slide crap into your dm's")
@@ -119,8 +119,10 @@ async def kick(ctx, member: discord.Member, * , arg):
 
 @bot.command()
 async def ban(ctx, member: discord.Member, *, arg):
+  reason = arg 
   await member.ban(reason=reason)
   await member.send(arg)
+  await ctx.send(f'user{member.mention} has been wiped(for now).')
 
 @bot.command()
 async def nw(ctx,*,arg):
@@ -136,14 +138,14 @@ async def critplayspit(ctx):
 async def bzflip(ctx):
   embedVar = discord.Embed(name="Best Flips",value=" ")
   embedVar.add_field(name="Enchanted iron blocks(craft)",value="Foul flesh(buy order),enchanted cobble stone(buy order), enchanted lava bucket(buy order)")
-  await ctx.send(embed=embedVar)
+  await ctx.send("this feature is down, will be advanced in the future")
 @bot.command()
 async def ahflip(ctx):
   await ctx.send("coming soon:tm:")
 @bot.command()
 async def embed(ctx):
   channel = bot.get_channel(838058407734935592)
- 
+
   embedVar = discord.Embed(name="Slayer",value="‏‏‎‏‏‎ ‎",color=0x00FF00)
   embedVar.add_field(name="Revenants",value="‏‏‎‎‎‎ what if i just type something very long here so that it will extent the size of this embed", inline=False)
   embedVar.add_field(name=" ‎‎",value="‏‏‎‏‏‎**Tier 5**", inline=True)
@@ -176,7 +178,7 @@ async def embed(ctx):
 
 @bot.command()
 async def alexisadumbbitch(ctx):
-  await ctx.send("i agree")
+  await ctx.send("Alright, if you found this command in the help menu, then get lost. If you just typed randomly, you are a fucking legend")
 @bot.command()
 async def waitethanhowmuchexperienceuhaveincode(ctx):
   await ctx.send("you tell me ")
@@ -198,20 +200,21 @@ async def pingstaff(ctx):
 @bot.command()
 async def cm(ctx):
   channel = bot.get_channel(869340112046141490)
-  cash = random.randint(0,5)
+  cash = random.randint(0,5647)
   embedVar = discord.Embed(name="You did not win ",value=" ",color=0xFF0000)
   embedVar.add_field(name="You did not win" , value="**Your number:**"f'{cash}', inline=False)
   await channel.send(f'{ctx.message.author.mention}', embed=embedVar)
-  if cash==1:
+  if cash==2:
     rle = ctx.guild.get_role(768454051926769715)
     embedVar = discord.Embed(name="You did not win ",value=" ",color=0x00ff00)
-    embedVar.add_field(name="You Won" , value="**Your number:**"f'{cash}', inline=False)
+    embedVar.add_field(name="You Won the grand prix of 5m(passive giveway)" , value="**Your number:**"f'{cash}', inline=False)
     await ctx.send(f'{rle.mention,ctx.message.author.mention}', embed=embedVar)
-  elif cash==2:
+  elif cash==69:
     rle = ctx.guild.get_role(768454051926769715)
     embedVar = discord.Embed(name="You did not win ",value=" ",color=0x00ff00) 
-    embedVar.add_field(name="You Won" , value="**Your number:**"f'{cash}', inline=False)
-    await ctx.send(f'Ea sports {rle.mention,ctx.message.author.mention}', embed=embedVar)
+    embedVar.add_field(name="You Won" , value="**Your number**"f'{cash}', inline=False)
+    embedVar.add_field(name="alright here is the deal, you got 69 so we will give you 1m, ya know just for getting it.")
+    await ctx.send(f'{rle.mention,ctx.message.author.mention}', embed=embedVar)
 @bot.command()
 @commands.has_role("{VIP]")
 async def wow(ctx):
@@ -219,6 +222,6 @@ async def wow(ctx):
   embedVar = discord.Embed(name=" ",value=" ",color=0xFF0000)
   embedVar.add_field(name="Your number: " , value="Your number:"f'{cash}', inline=True)
   await ctx.send(f'{ctx.message.author.mention}', embed=embedVar)
-  
+
   #done :D
-bot.run('Nzk2ODY4NDU4MDgzMTIzMjUx.X_eLlQ.yiNrMIm30hIIk7ry9dDN5th66LM') 
+bot.run('Nzk2ODY4NDU4MDgzMTIzMjUx.X_eLlQ.yiNrMIm30hIIk7ry9dDN5th66LM')
