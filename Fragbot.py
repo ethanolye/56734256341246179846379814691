@@ -1,20 +1,30 @@
+
 import discord
 import os 
 import asyncio
 import datetime
+import time 
 import random
+import re 
 from discord import user
+from discord import message
 from discord.ext import commands
 from discord.utils import get
 from random import randint
+from types import coroutine
 import sys, re
 from javascript import require, On, Once, AsyncTask, once, off
 mineflayer = require('mineflayer', "latest")
 pathfinder = require('mineflayer-pathfinder')
+users_list = []
+intents = discord.Intents().all()
+bot = commands.Bot(command_prefix = "$")
+pattern = r'^[a-zA-z0-9$]*'
+
 
 BOT_USERNAME = 'afarts33@yahoo.com'
 
-bot = mineflayer.createBot({
+mcbot = mineflayer.createBot({
   'host': 'mc.hypixel.net',
   'port': 25565,
   'username': BOT_USERNAME,
@@ -22,39 +32,39 @@ bot = mineflayer.createBot({
   'hideErrors': False
 })
 
-bot.loadPlugin(pathfinder.pathfinder)
-print("Started mineflayer")
 
-once(bot, 'login')
+once(mcbot, 'login')
 print("i loggged in ")
+time.sleep(2)
+mcbot.chat('/play sb')
+time.sleep(3)
+mcbot.chat('/warp home')
+
+loop = asyncio.new_event_loop()
+@On(mcbot,'chat')
+def messagestr(this,user,toString ,*args):
+  print(f'{user}: {toString}')
+  channel = bot.get_channel(911054894327283732)
+  embedVar = discord.Embed(name=f'message ',value=f'message')
+  embedVar.add_field(name=f'{user}',value=f'{toString}', inline=True)
+  bot.loop.create_task(channel.send(embed=embedVar))
 
 
-@On(bot, 'chat',)
-
-def handleMsg(this, user, rawMessage , *args):
-  rawMessage == rawMessage
-  user == user 
-  this = this 
-  print(f' {user}: {rawMessage}')
-
-
-@On(bot, "chat")
-def handle(this, username, message, *args):
+  
+@On(mcbot, "chat")
+def handle( username, message, *args):
     if message.startswith("You are AFK. Move around to return from AFK."):
-      bot.chat('/l')
-
-users_list = []
-intents = discord.Intents().all()
-bot = commands.Bot(command_prefix = "$")
-@bot.event
-async def on_ready():
-  this, user, rawMessage,*args = handleMsg()    
-  print('Online')
-  channel = bot.get_channel(901491654500946000)
-  await channel.send(f' {user}: {rawMessage}')
+      mcbot.chat('/l')
+@On(mcbot, "chat")
+def onChat(this,user,message,*args):
+  if 'has invited' in message:
+    mcbot.chat('yes')
 
 
 
+@bot.command()
+async def ree(ctx):
+  mcbot.chat('hello this is poggers')
 
 @bot.command()
 async def dm(ctx, member: discord.Member, *,arg):
@@ -71,5 +81,5 @@ async def thiscommandliterallydoesnothingbutpingyou(ctx):
 
 
 
-bot.run('OTAxNjM0NTMzMTM1MzUxODI5.YXSumA.05K0FiYTS8lFeOaZaZM5QgS_6go')
+bot.run('OTAxNjM0NTMzMTM1MzUxODI5.YXSumA.2ZPjRojMWUZssifymZfki1hktes')
   
