@@ -224,4 +224,4 @@ async def wow(ctx):
   await ctx.send(f'{ctx.message.author.mention}', embed=embedVar)
 
   #done :D
-bot.run('Nzk2ODY4NDU4MDgzMTIzMjUx.X_eLlQ.yiNrMIm30hIIk7ry9dDN5th66LM')
+bot.run()
