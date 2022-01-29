@@ -157,5 +157,5 @@ async def ban(ctx, member: discord.Member, *, arg):
   await member.send(arg)
   await ctx.send(f'user{member.mention} has been wiped(for now).')
   
-bot.run('OTAxNjM0NTMzMTM1MzUxODI5.YXSumA.2ZPjRojMWUZssifymZfki1hktes')
+bot.run('')
   
