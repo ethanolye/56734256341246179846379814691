@@ -41,11 +41,15 @@ print("i loggged in ")
 time.sleep(2)
 mcbot.chat('/play sb')
 
+pathfinder = require('mineflayer-pathfinder')
 mcbot.loadPlugin(pathfinder.pathfinder)
+# Create a new minecraft-data instance with the bot's version
 mcData = require('minecraft-data')(mcbot.version)
+# Create a new movements class
 movements = pathfinder.Movements(mcbot, mcData)
+# How far to be fromt the goal
+RANGE_GOAL = 1
 
-RANGE_GOAL = 1 
 loop = asyncio.new_event_loop()
 
 @On(mcbot,'messagestr')
@@ -56,11 +60,18 @@ def handleMsg(this,message,messagePosition,*_):
       x = datetime.datetime.now()
       print(message)
       file_users = open("Ingametext.txt", "a")
+      if "❤" in message: 
+        pass
+      if "◆" in message:
+        pass 
+      if "⭐" in message:
+        pass 
+      
       file_users.writelines(f'{x.strftime("%c")} : {message}\n')
       file_users.close()
   if message.startswith("You were spawned in Limbo."):
     mcbot.chat("/l ")
-  if message.startswith("You have 1 unclaimed leveling reward!"):
+    sleep(2.0)
     mcbot.chat("/play sb")
   if "party" and ">" and  "bruyhrew" in message:
     x = datetime.datetime.now()
@@ -68,21 +79,15 @@ def handleMsg(this,message,messagePosition,*_):
   if "limbo" in message:
     x = datetime.datetime.now()
     mcbot.chat("/l")
-    sleep(1)
-    mcbot.chat("/play sb ")
     print(f'{x.strftime("%c")}: {message}')
-@On(mcbot,'messagestr')
-def handleMsg(this,message,messagePosition,*_):
-  if ":" in message: 
-    ue = re.search(r'(.*?):',message).group(1)
-    eu = re.search(r':(.*?)',message).group(1)
-    channel = bot.get_channel(929859311021215855)
-    bot.loop.create_task(channel.send(f'{ue}:{eu}'))
+  if "You are currently connected to server" in message:
+    print(message)
 @On(mcbot,'messagestr')
 def handleMsg(this,message,messagePosition,*_):
   if "robpyle13" in message:
     return
   if "invited" in message:
+
     u = re.search(r'](.*?)has', message).group(1)
     x = datetime.datetime.now()
     ra = random.randint(0,9999999)
@@ -91,13 +96,22 @@ def handleMsg(this,message,messagePosition,*_):
     sleep(1)
     mcbot.chat(f'/pc Thanks for using this bot ID:{ra}')
     sleep(0.5)
-    mcbot.chat("/pc This bot is in beta testing stages, expect many errors ")
+    mcbot.chat("/pc Thanks for using this bot")
     sleep(3)
     mcbot.chat("/p leave")
     file_users = open("Frag-people.txt", "a")
     file_users.writelines(f'{x.strftime("%c")} Name:{u} ID:{ra}\n')
     file_users.close()
 
+loop = asyncio.get_event_loop()
+@On(mcbot,'chat')
+def handleMsg(this,user,message,*args):
+  if "robpyle13" in message:
+    return
+  channel = bot.get_channel(911054894327283732)
+  embedVar = discord.Embed(name=f'message ',value=f'message',color=0x66ffcc)
+  embedVar.add_field(name=f'{user}',value=f'{message}', inline=True)
+  asyncio.run_coroutine_threadsafe(channel.send(embed=embedVar),loop)
 @On(mcbot,'chat')
 def handleMsg(this,user,message,*args):
   x = ['selling', 'SELLING','Selling','ah','Ah','AH','buying','BUYING']
@@ -111,8 +125,24 @@ def handleMsg(this,user,message,*args):
     channel = bot.get_channel(912457100477726750)
     embedVar = discord.Embed(name=f'message ',value=f'message',color=0x66ffcc)
     embedVar.add_field(name=f'{user}',value=f'{message}', inline=True)
-    bot.loop.create_task(channel.send(embed=embedVar))
+    asyncio.run_coroutine_threadsafe(channel.send(embed=embedVar),loop)
 
+
+@On(mcbot, 'chat')
+def handleMsg(this, sender, message, *args):
+  if sender and (sender != BOT_USERNAME):
+    if '34578324' in message:
+      o = re.search(r']\s(.*?):',message).group(1)
+      player = mcbot.players[o]
+      target = player.entity
+      if not target:
+        mcbot.chat("/pc no see you")
+        return
+      pos = target.position
+      mcbot.pathfinder.setMovements(movements)
+      mcbot.pathfinder.setGoal(pathfinder.goals.GoalNear(pos.x, pos.y, pos.z, RANGE_GOAL))
+    if 'stop' in message:
+      off(mcbot, 'chat', handleMsg)
   
 @On(mcbot, "chat")
 def handle( username, message, *args):
@@ -137,6 +167,7 @@ async def thiscommandliterallydoesnothingbutpingyou(ctx):
 @bot.command()
 async def say(ctx,*,arg):
   mcbot.chat(f'{arg}')
+  
 
 @bot.command()
 async def dmtest(ctx, member: discord.Member):
@@ -157,5 +188,5 @@ async def ban(ctx, member: discord.Member, *, arg):
   await member.send(arg)
   await ctx.send(f'user{member.mention} has been wiped(for now).')
   
-bot.run('')
+bot.run('OTAxNjM0NTMzMTM1MzUxODI5.YXSumA.E5DwGHzKc-_uzJbPH9-7eQMl08k')
   
