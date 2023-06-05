@@ -1,30 +1,159 @@
 import pygame
 import random 
 import math
+import time 
 pygame.init()
 screensize = (1080,620)
 screen = pygame.display.set_mode(screensize)
-RED = 255,0,0
-GREEN = 0,128,0
+RED = (255,0,0)
+GREEN = (0,128,0)
 BLUE = (0,0,255)
 YELLOW = (255,255,0)
 GREY = (128,128,128)
 BLACK = (0,0,0)
 WHITE  = (255,255,255)
-width = screen.get_width()
-height = screen.get_height()
 pygame.display.update() 
-screen.fill(RED)
-running = True 
-#Code begins 
-while running:
-    event = pygame.event.poll()
-    if event.type == pygame.QUIT():
-        running = False
-                  
+#Code begins----------
+deck = []
+for i in range(52):
+    deck.append(i)
 
+# Shuffle the deck
+random.shuffle(deck)
 
-
-
-
+# Deal cards to players
+player_hand = [deck.pop(), deck.pop()]
+computer_hand = [deck.pop(), deck.pop()]
+river = [deck.pop(),deck.pop(),deck.pop(),deck.pop(),deck.pop()]
+def sort(list):
+    sorted = []
+    h = len(list)
+    time.sleep(0.02)
+    for i in range(h):
+        l = list[i]
+        if l<= 13:
+            suit = "H"
+            if l == 13:
+                num = "K"
+            if l == 12:
+                num = "Q"
+            if l == 11:
+                num = "J"
+            if l <=10 and l>1:
+                num = l
+            if l == 1:
+                num = "A"
+            
+        
+        elif list[i]>13 and list[i]<=26:
+            suit = "S"
+            l = list[i]-13
+            if l == 13:
+                num = "K"
+            if l == 12:
+                num = "Q"
+            if l == 11:
+                num = "J"
+            if l <=10 and l>1:
+                num = l
+            if l == 1:
+                num = "A"
+        elif list[i]>26 and list[i]<=39:
+            suit = "D"
+            l = list[i]-26
+            if l == 13:
+                num = "K"
+            if l == 12:
+             num = "Q"
+            if l == 11:
+                num = "J"
+            if l <=10 and l>1:
+                num = l
+            if l == 1:
+                num = "A"
+        elif list[i]>39 and list[i]<=52:
+            suit = "C"
+            l = list[i]-39
+            if l == 13:
+                num = "K"
+            if l == 12:
+                num = "Q"
+            if l == 11:
+                num = "J"
+            if l <=10 and l>1:
+                num = l
+            if l == 1:
+                num = "A"
+        time.sleep(0.01)
+        x = suit,num
+        sorted.append(x)
+    return sorted
+   
     
+
+
+def check():
+    a = player_hand
+    c = computer_hand
+    b = river
+    player = sort(a)
+    computer = sort(c)
+    e= sort(b)
+    f = sort(b)
+    for i in range(len(player)):
+        e.append(player[i])
+        
+    for g in range(len(computer)):
+         f.append(computer[g])
+
+   
+    player_river = e
+    computer_river = f
+    print(player_river)
+    def is_flush():
+        x = len(e)
+        sum = 0
+        suits = ['C','H','D','S']
+        suit= []
+        for i in range(x):
+            le = player_river[i][0] 
+            suit.append(le)
+        
+        c = suit.count("C")
+        h = suit.count("H")
+        d = suit.count("D")
+        s = suit.count("S")
+        int = [c,h,d,s]
+        if c == 5 or h== 5 or d== 5 or s== 5  :
+            print("its a flush")
+        elif c == 4 or h== 4 or d== 4 or s== 4  :
+            print("its four of a kind")
+        elif c == 3 or h== 3 or d== 3 or s== 3  :
+            print("its three of a kind")
+        elif  c == 2 or h== 2 or d== 2 or s== 2  :
+            print("its a pair")
+        for g in range(4):
+            i = int[g]
+            if i == 2:
+                print(g,i)
+        
+
+        print(suit)
+        print(c,h,d,s)
+    is_flush()
+            
+check()
+
+        
+
+
+
+screen.fill(RED)
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    screen.fill(RED)
+    pygame.display.flip()
+
