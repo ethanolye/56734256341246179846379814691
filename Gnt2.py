@@ -177,9 +177,6 @@ async def embed(ctx):
   embedVar.add_field(name="Barels Slayer",value=" basically you donate. open a support ticket to donte this will help us.  ‎")
 
 @bot.command()
-async def alexisadumbbitch(ctx):
-  await ctx.send("Alright, if you found this command in the help menu, then get lost. If you just typed randomly, you are a fucking legend")
-@bot.command()
 async def waitethanhowmuchexperienceuhaveincode(ctx):
   await ctx.send("you tell me ")
 @bot.command()
